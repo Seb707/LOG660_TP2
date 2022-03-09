@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar. 9, 2022, 1:40:14 p.m. by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="Employes" table="EMPLOYES" optimistic-lock="version">
+        <id name="courriel" type="string">
+            <column name="COURRIEL" />
+            <generator class="foreign">
+                <param name="property">utilisateurs</param>
+            </generator>
+        </id>
+        <one-to-one name="utilisateurs" class="Utilisateurs" constrained="true"></one-to-one>
+        <property name="matricule" type="big_decimal">
+            <column name="MATRICULE" precision="22" scale="0" not-null="true" unique="true" />
+        </property>
+    </class>
+</hibernate-mapping>
