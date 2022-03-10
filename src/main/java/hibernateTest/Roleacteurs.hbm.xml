@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated Mar. 9, 2022, 1:40:14 p.m. by Hibernate Tools 4.3.5.Final -->
+<!-- Generated Mar. 10, 2022, 10:23:52 a.m. by Hibernate Tools 4.3.5.Final -->
 <hibernate-mapping>
     <class name="Roleacteurs" table="ROLEACTEURS" optimistic-lock="version">
-        <composite-id name="id" class="hibernate/RoleacteursId">
+        <composite-id name="id" class="RoleacteursId">
             <key-property name="personnage" type="string">
                 <column name="PERSONNAGE" />
             </key-property>

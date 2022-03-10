@@ -8,24 +8,14 @@
   <property name="hibernate.connection.password">YXHvbsQ4</property>
   <property name="hibernate.connection.url">jdbc:oracle:thin:@log660ora12c.logti.etsmtl.ca:1521/LOG660ora12c.logti.etsmtl.ca</property>
   <property name="hibernate.connection.username">EQUIPE201</property>
-  <property name="hibernate.connection.password">YXHvbsQ4</property>
   <property name="hibernate.default_schema">EQUIPE201</property>
   <property name="hibernate.search.autoregister_listeners">true</property>
   <property name="hibernate.validator.apply_to_ddl">false</property>
   <property name="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</property>
-  <mapping resource="hibernate/Bandeannonces.hbm.xml"/>
-  <mapping resource="hibernate/Clients.hbm.xml"/>
-  <mapping resource="hibernate/Copiefilms.hbm.xml"/>
-  <mapping resource="hibernate/Copiefilmsdispo.hbm.xml"/>
-  <mapping resource="hibernate/Employes.hbm.xml"/>
-  <mapping resource="hibernate/Forfaits.hbm.xml"/>
-  <mapping resource="hibernate/Films.hbm.xml"/>
-  <mapping resource="hibernate/Genres.hbm.xml"/>
-  <mapping resource="hibernate/Locations.hbm.xml"/>
-  <mapping resource="hibernate/Paysdeproduction.hbm.xml"/>
-  <mapping resource="hibernate/Personnes.hbm.xml"/>
-  <mapping resource="hibernate/Roleacteurs.hbm.xml"/>
-  <mapping resource="hibernate/Scenaristes.hbm.xml"/>
-  <mapping resource="hibernate/Utilisateurs.hbm.xml"/>
+  <mapping resource="hibernateTest/Utilisateurs.hbm.xml"/>
+  <mapping resource="hibernateTest/Clients.hbm.xml"/>
+  <mapping resource="hibernateTest/Locations.hbm.xml"/>
+  <mapping resource="hibernateTest/Forfaits.hbm.xml"/>
+  <mapping resource="hibernateTest/Copiefilms.hbm.xml"/>
  </session-factory>
 </hibernate-configuration>
