@@ -1,7 +1,10 @@
 package com.example.demo.configuration;
 
 import com.example.demo.persistence.IUtilisateursRepo;
+import com.example.demo.persistence.UtilisateursRepo;
 import io.jsonwebtoken.Jwts;
+import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +13,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.persistence.EntityManagerFactory;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +26,10 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private final JwtTokenUtil jwtUtil;
     private final IUtilisateursRepo repo;
 
-    public JwtTokenFilter(JwtTokenUtil jwtUtil, IUtilisateursRepo repo) {
+    @Autowired
+    public JwtTokenFilter(JwtTokenUtil jwtUtil, EntityManagerFactory factory) {
         this.jwtUtil = jwtUtil;
-        this.repo = repo;
+        this.repo = new UtilisateursRepo(factory.unwrap(SessionFactory.class));
     }
 
     @Override
@@ -32,7 +37,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain) throws ServletException, IOException {
         final String header = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (!header.startsWith("Bearer ")) {
+        if (header == null || !header.startsWith("Bearer ")) {
             chain.doFilter(request, response);
             return;
         }

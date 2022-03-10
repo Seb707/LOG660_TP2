@@ -1,8 +1,8 @@
 
 package com.example.demo;
 import com.example.demo.configuration.JwtTokenUtil;
+import com.example.demo.models.hibernate.Utilisateurs;
 import com.example.demo.models.input.LoginInput;
-import com.example.demo.models.Utilisateur;
 import com.example.demo.models.views.MovieListItemView;
 import com.example.demo.models.views.UtilisateurView;
 import org.springframework.boot.SpringApplication;
@@ -44,7 +44,7 @@ public class DemoApplication {
 					new UsernamePasswordAuthenticationToken(input.email, input.password)
 			);
 
-			var user = (Utilisateur) authentication.getPrincipal();
+			var user = (Utilisateurs) authentication.getPrincipal();
 			return ResponseEntity.ok()
 					.header(HttpHeaders.AUTHORIZATION, jwtTokenUtil.generateAccessToken(user))
 					.body(UtilisateurView.fromUtilisateur(user));

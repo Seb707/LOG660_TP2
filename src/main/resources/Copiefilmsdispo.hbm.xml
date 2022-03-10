@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar. 9, 2022, 1:40:14 p.m. by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="com.example.demo.models.hibernate.Copiefilmsdispo" table="COPIEFILMSDISPO" optimistic-lock="version">
+        <composite-id name="id" class="com.example.demo.models.hibernate.CopiefilmsdispoId">
+            <key-property name="nocopie" type="big_decimal">
+                <column name="NOCOPIE" precision="22" scale="0" />
+            </key-property>
+            <key-property name="disponible" type="big_decimal">
+                <column name="DISPONIBLE" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

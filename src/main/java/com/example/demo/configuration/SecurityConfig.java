@@ -1,6 +1,8 @@
 package com.example.demo.configuration;
 
 import com.example.demo.persistence.IUtilisateursRepo;
+import com.example.demo.persistence.UtilisateursRepo;
+import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,6 +18,7 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import javax.persistence.EntityManagerFactory;
 import javax.servlet.http.HttpServletResponse;
 
 @EnableWebSecurity
@@ -23,8 +26,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final IUtilisateursRepo repo;
     private final JwtTokenFilter jwtTokenFilter;
 
-    public SecurityConfig(IUtilisateursRepo repo, JwtTokenFilter jwtTokenFilter) {
-        this.repo = repo;
+    public SecurityConfig(EntityManagerFactory factory, JwtTokenFilter jwtTokenFilter) {
+        this.repo = new UtilisateursRepo(factory.unwrap(SessionFactory.class));
         this.jwtTokenFilter = jwtTokenFilter;
     }
 
@@ -54,29 +57,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http = http.cors().and().csrf().disable();
-        http = http
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and();
-
-        http = http
-                .exceptionHandling()
-                .authenticationEntryPoint(
-                        (request, response, ex) -> {
-                            response.sendError(
-                                    HttpServletResponse.SC_UNAUTHORIZED,
-                                    ex.getMessage()
-                            );
-                        }
-                )
-                .and();
-
-        http.authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/login").permitAll()
-                .anyRequest().authenticated();
-
-        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+        http.cors().and().csrf().disable()
+            .authorizeRequests()
+                .antMatchers("/login", "/hello")
+                    .permitAll()
+                .anyRequest()
+                    .authenticated()
+                .and()
+            .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
     @Override @Bean

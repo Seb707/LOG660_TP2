@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar. 9, 2022, 1:40:14 p.m. by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="com.example.demo.models.hibernate.Clients" table="CLIENTS" optimistic-lock="version">
+        <id name="courriel" type="string">
+            <column name="COURRIEL" />
+            <generator class="foreign">
+                <param name="property">utilisateurs</param>
+            </generator>
+        </id>
+        <one-to-one name="utilisateurs" class="com.example.demo.models.hibernate.Utilisateurs" constrained="true"/>
+        <many-to-one name="forfaits" class="com.example.demo.models.hibernate.Forfaits" fetch="select">
+            <column name="CODE" length="1" not-null="true" />
+        </many-to-one>
+        <property name="typecartedecredit" type="string">
+            <column name="TYPECARTEDECRÉDIT" not-null="true" />
+        </property>
+        <property name="numero" type="big_decimal">
+            <column name="NUMÉRO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="dateexpiration" type="date">
+            <column name="DATEEXPIRATION" length="7" not-null="true" />
+        </property>
+<!--        <set name="locationses" table="LOCATIONS" inverse="true" lazy="true" fetch="select">-->
+<!--            <key>-->
+<!--                <column name="CLIENTCOURRIEL" not-null="true" />-->
+<!--            </key>-->
+<!--            <one-to-many class="com.example.demo.models.hibernate.Locations" />-->
+<!--        </set>-->
+    </class>
+</hibernate-mapping>

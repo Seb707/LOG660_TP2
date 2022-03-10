@@ -1,6 +1,6 @@
 package com.example.demo.configuration;
 
-import com.example.demo.models.Utilisateur;
+import com.example.demo.models.hibernate.Utilisateurs;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
@@ -10,9 +10,9 @@ public class JwtTokenUtil {
     private final String secret = "secret";
     private final String issuer = "webflix";
 
-    public String generateAccessToken(Utilisateur utilisateur) {
+    public String generateAccessToken(Utilisateurs utilisateur) {
         return Jwts.builder()
-                .setSubject(String.format("%s", utilisateur.courriel))
+                .setSubject(String.format("%s", utilisateur.getCourriel()))
                 .setIssuer(issuer)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 7 * 24 * 60 * 60 * 1000)) // 1 week

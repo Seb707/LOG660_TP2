@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar. 9, 2022, 1:40:14 p.m. by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="com.example.demo.models.hibernate.Genres" table="GENRES" optimistic-lock="version">
+        <id name="genre" type="string">
+            <column name="GENRE" />
+            <generator class="assigned" />
+        </id>
+        <set name="filmses" table="GENREFILMS" inverse="false" lazy="true" fetch="select">
+            <key>
+                <column name="GENRE" not-null="true" />
+            </key>
+            <many-to-many entity-name="com.example.demo.models.hibernate.Films">
+                <column name="FILMID" precision="22" scale="0" not-null="true" />
+            </many-to-many>
+        </set>
+    </class>
+</hibernate-mapping>
