@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated Mar. 9, 2022, 7:47:02 p.m. by Hibernate Tools 4.3.5.Final -->
+<hibernate-mapping>
+    <class name="Bandeannonces" table="BANDEANNONCES" optimistic-lock="version">
+        <composite-id name="id" class="BandeannoncesId">
+            <key-property name="url" type="string">
+                <column name="URL" />
+            </key-property>
+            <key-property name="filmid" type="big_decimal">
+                <column name="FILMID" precision="22" scale="0" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="films" class="Films" update="false" insert="false" fetch="select">
+            <column name="FILMID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>
