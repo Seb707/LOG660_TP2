@@ -13,8 +13,8 @@ public interface IFilmsRepo {
         int yearTo,
         List<String> countries,
         List<String> genres,
-        List<String> languages,
+        String language,
         List<String> actors,
-        List<String> directors
+        String director
     );
 }

@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManagerFactory;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @SpringBootApplication
@@ -45,7 +46,7 @@ public class DemoApplication {
 		SpringApplication.run(DemoApplication.class, args);
 	}
 
-	@PostMapping("/login")
+	@PostMapping(value = "/login")
 	public ResponseEntity<UtilisateurView> login(@RequestBody LoginInput input) {
 		try {
 			var authentication = authenticationManager.authenticate(
@@ -64,29 +65,29 @@ public class DemoApplication {
 	@GetMapping("/movies")
 	public ResponseEntity<List<MovieListItemView>> getMoviesList(
 			@RequestParam(required = false) String title,
-			@RequestParam(required = false) int yearFrom,
-			@RequestParam(required = false) int yearTo,
+			@RequestParam(required = false, defaultValue = "-1") int yearFrom,
+			@RequestParam(required = false, defaultValue = "-1") int yearTo,
 			@RequestParam(required = false) List<String> countries,
 			@RequestParam(required = false) List<String> genres,
-			@RequestParam(required = false) List<String> languages,
+			@RequestParam(required = false) String language,
 			@RequestParam(required = false) List<String> actors,
-			@RequestParam(required = false) List<String> directors
+			@RequestParam(required = false) String director
 	) {
-		return ResponseEntity.ok(
+		var x =
 				filmsRepo.searchFilms(
 					 title,
 					 yearFrom,
 					 yearTo,
 					 countries,
 					 genres,
-					 languages,
+					 language,
 					 actors,
-					 directors
+					 director
 				)
 				.stream()
-				.map(MovieListItemView::fromFilms)
-				.collect(Collectors.toList())
-		);
+				.map(MovieListItemView::fromFilms);
+				var y = x.collect(Collectors.toList());
+				return ResponseEntity.ok(y);
 	}
 
 	@GetMapping("/movies/{id}")
